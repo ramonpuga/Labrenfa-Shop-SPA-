@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LABRENFA HOUSE SHOP</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Hepta+Slab:400,700|Lato:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+</head>
+<body>
+    <div id="dialogoverlay"></div>
+<div id="dialogbox">
+	<div>
+		<div id="dialogboxhead"></div>
+		<div id="dialogboxbody"></div>
+		<div id="dialogboxfoot"></div>
+	</div>
+</div>
+    <div class="modal">
+     <div class="consultacep">
+        <button class="fechaconsulta" onclick="hideconsulta()"><i class="fas fa-times"></i></button>
+        <form id="cepform" action="">
+        <h2><i class="fas fa-map-marked-alt"></i></h2>
+        <label>Rua</label>
+        <input type="text" class="rua2" minlength="3" placeholder="Sua rua" required>
+        <label>Cidade</label>
+        <input type="text" class="cidade2" minlength="3" placeholder="Sua cidade" required>
+        <label>UF</label>
+        <input type="text" class="estado2" minlength="2" maxlength="2" placeholder="Sigla do seu estado" required>
+        <button type="submit" id="btnBuscarCep"><i class="fas fa-search-location"></i></button>
+        </form>
+        <ul id="listaCep"></ul>
+    </div>
+    <div class="pagamento">
+        <button class="fechapagamento" onclick="hidepagamento()"><i class="fas fa-times"></i></button>
+        <form id="pagamentoform" action="">
+        <h2><i class="fas fa-hand-holding-usd"></i></h2>
+        <select class="selpagamento" onchange="selectpag()">
+            <option>Selecione a forma de pagamento</option>
+            <option>Depósito</option>
+            <option>Pix</option>
+            <option>Transferência</option>
+        </select>
+        <input type="hidden" class="pagselecionado">
+        <ul class="seldados">
+        <a>Os dados para pagamento<br>serão enviados também<br>via e-mail</a>
+        </ul>
+        <button type="submit" id="finalizarpedido"><i class="fas fa-hands-helping"></i></button>
+        </form>
+    </div>
+    <div class="finalcompra">
+        <h2>Pedido realizado!</h2>
+        <ul>
+        <a>Os dados para pagamento serão enviados também<br>via e-mail.</a><br><br>
+        <a>Assim que o pagamento for identificado,<br>seu pedido será enviado!<br><br>Att, LABRENFA</a>
+        </ul>
+        <button onclick="comprou()"><strong>Fechar</strong></button>
+    </div>
+    
+    <div class="compra">
+        <button class="fechamodal" onclick="hidemodal()"><i class="fas fa-times"></i></button>
+        <form action="">
+        <h2><i class="fas fa-clipboard-list"></i> <i class="fas fa-shipping-fast"></i></h2>
+        <label>Nome</label>
+        <input type="text" class="nome" minlength="3" maxlength="30" placeholder="Seu nome" required>
+        <input type="hidden" class="sobrenome" minlength="3" maxlength="20" placeholder="Seu sobrenome" required>
+        <input type="hidden" id="cpf" class="cpf" minlength="14" maxlength="14" placeholder="Informe seu CPF" required>
+        <label>Contato/WhatsApp</label>
+        <input type="tel" id="cel" class="cel" minlength="14" maxlength="14" placeholder="Seu Celular/WhatsApp" required>
+        <label>E-mail</label>
+        <input type="email" class="email" maxlength="35" placeholder="Seu e-mail" required>
+        <label>CEP</label><div class="nseimeucep" onclick="showconsulta()">» Não sei meu cep</div>
+        <input type="tel" id="cep" class="cep" maxlength="8" placeholder="Informe seu CEP" required>
+        <input type="text" class="end" minlength="3" maxlength="35" placeholder="Endereço p/ entrega" required>
+        <input type="tel" class="num" minlength="1" maxlength="10" placeholder="Número" required>
+        <input type="hidden" class="bairro">
+        <input type="hidden" class="cidade">
+        <input type="hidden" class="estado">
+        <button type="submit" class="proximo"><i class="fas fa-arrow-right"></i></button>
+    </form>
+    </div>
+    </div>
+    <div class="models">
+        <div class="prod-item">
+            <a href="">
+                <div class="prod-item--img"><img src="" /></div>
+                <div class="prod-item--add">+</div>
+            </a>
+            <div class="prod-item--price">R$ --</div>
+            <div class="prod-item--name">--</div>
+            <div class="prod-item--desc">--</div>
+        </div>
+        <div class="cart--item">
+            <img src="" />
+            <div class="cart--item-nome">--</div>
+            <div class="cart--item--qtarea">
+                <button class="cart--item-qtmenos">-</button>
+                <div class="cart--item--qt">1</div>
+                <button class="cart--item-qtmais">+</button>
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="menu-openner"><span>0</span><i class="fas fa-shopping-cart"></i></div>
+    </header>
+    <main>
+        <img src="images/header.png" class="header-labrenfa">
+        <div class="prod-area"></div>
+    </main>
+    <aside>
+        <div class="cart--area">
+            <div class="menu-closer"><i class="fas fa-times"></i></div>
+            <h1><i class="fas fa-shopping-cart"></i> Seu Carrinho</h1>
+            <div class="cart"></div>
+            <div class="cart--details">
+                <div class="cart--totalitem subtotal">
+                    <span>Subtotal</span>
+                    <span>R$ --</span>
+                </div>
+                <div class="cart--totalitem desconto">
+                    <span><i class="fas fa-gift"></i> Desconto (-10%)</span>
+                    <span>R$ --</span>
+                </div>
+                <div class="cart--totalitem total big">
+                    <span>Total</span>
+                    <span>R$ --</span>
+                </div>
+                <div class="cart--finalizar" onclick="showmodal()"><strong>Finalizar compra</strong></div>
+            </div>
+        </div>
+    </aside>
+    <div class="prodWindowArea">
+        <div class="prodWindowBody">
+            <div class="prodInfo--cancelMobileButton">Voltar</div>
+            <div class="prodBig">
+                <img src="" />
+            </div>
+            <div class="prodInfo">
+                <h1>--</h1>
+                <div class="prodInfo--desc">--</div>
+                <div class="prodInfo--sizearea">
+                    <div class="prodInfo--sector">Tamanho</div>
+                    <div class="prodInfo--sizes">
+                        <div data-key="0" class="prodInfo--size">PEQUENO <span>--</span></div>
+                        <div data-key="1" class="prodInfo--size">MÉDIO <span>--</span></div>
+                        <div data-key="2" class="prodInfo--size selected">GRANDE <span>--</span></div>
+                    </div>
+                </div>
+                <div class="prodInfo--pricearea">
+                    <div class="prodInfo--sector">Preço</div>
+                    <div class="prodInfo--price">
+                        <div class="prodInfo--actualPrice">R$ --</div>
+                        <div class="prodInfo--qtarea">
+                            <button class="prodInfo--qtmenos">-</button>
+                            <div class="prodInfo--qt">1</div>
+                            <button class="prodInfo--qtmais">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="prodInfo--addButton">Adicionar ao carrinho</div>
+                <div class="prodInfo--cancelButton">Cancelar</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="product.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <script type="text/javascript">(function() {
+        emailjs.init("user_I4trAZ1iEFEyTAfpsGRfp");
+        })();</script>
+</body>
+</html> 
